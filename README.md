@@ -2,6 +2,17 @@
 
 A library for mathematical image processing.
 
+## Hint for CMake
+
+Please create a folder named "build" for CMakes auxiliary files:
+
+```
+mkdir build
+cd build
+cmake ..
+```
+
+
 ## Hint for third party projects
 
 This project uses [googletest](github.com/google/googletest) as an git submodule.
