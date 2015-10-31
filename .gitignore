@@ -1,0 +1,52 @@
+# ---
+# Ignore for project layout
+# ---
+
+# Folder for executables and shared libraries
+out/
+build/
+
+# Folder for generated documentation
+doc/
+
+# ---
+# Ignore certain ide project folders
+# ---
+
+# All JetBrains IDEs
+.idea/
+
+
+# ---
+# Ignore c++ files
+# ---
+# Source: https://github.com/github/gitignore
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
