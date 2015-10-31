@@ -1,0 +1,9 @@
+#ifndef UCBIMP_VERSION_H
+#define UCBIMP_VERSION_H
+
+#define VERSION_MAJOR  0
+#define VERSION_MINOR  0
+#define VERSION_PATCH  0
+#define VERSION_SHORT  0.0.0
+
+#endif //UCBIMP_VERSION_H

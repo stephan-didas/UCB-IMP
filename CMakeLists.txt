@@ -14,6 +14,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${UCBImp_SOURCE_DIR}/out/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${UCBImp_SOURCE_DIR}/out/lib)
 
+# Add third-party modules and cmake scripts to cmake module path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/scripts")
+
 
 
 ###
@@ -71,3 +75,23 @@ endif()
 if (DOXYGEN_FOUND)
     configure_file("${UCBImp_SOURCE_DIR}/cmake/infiles/Doxyfile.in" "${UCBImp_SOURCE_DIR}/conf/Doxyfile")
 endif()
+
+
+
+###
+#   Reading out version from git tag
+#
+#   Readout git version, provide them as variables and update project files.
+###
+
+# Reading version information from git and save it in cmake variables
+include(GetVersionInformation)
+
+# Update VERSION file with new version
+file(WRITE ${UCBImp_SOURCES_DIR}VERSION "${VERSION_SHORT}")
+
+# Update version.h header file
+configure_file(
+        "${UCBImp_SOURCE_DIR}/cmake/infiles/version.h.in"
+        "${UCBImp_SOURCE_DIR}/include/version.h"
+)
