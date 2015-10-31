@@ -9,6 +9,9 @@ build/
 # Folder for generated documentation
 doc/
 
+# Don't share Doxygen file
+conf/Doxyfile
+
 # ---
 # Ignore certain ide project folders
 # ---
