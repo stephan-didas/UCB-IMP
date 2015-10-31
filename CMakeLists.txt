@@ -19,7 +19,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${UCBImp_SOURCE_DIR}/out/lib)
 ###
 #   Adding subdirectories to cmake
 #
-#   Adding src directory, providing test target
+#   Adding src directory, providing test- and doc-target
 ###
 
 # Add source directory
@@ -41,4 +41,33 @@ if (test)
     # Adding directory for tests
     add_subdirectory(test)
 
+endif()
+
+# Provides target for documentary generation with doxygen
+#
+# This part defines a flag "doc" to activate documentary generation.
+# The default value is ON. If generated, the documentary is stored in doc/.
+option(doc  "Generate documentation with documentation." ON)
+if (doc)
+
+    # Finding doxygen on current system
+    # @TODO: Implement Workaround for Windows
+    # @TODO: Remove REQUIRED since not really neccessary for compilation
+    find_package(Doxygen REQUIRED)
+
+    if(DOXYGEN_FOUND)
+        # Adding target for generating doxygen documentation
+        add_custom_target(
+                doc
+                ${DOXYGEN_EXECUTABLE}
+                ${UCBImp_SOURCE_DIR}/conf/Doxyfile
+                COMMENT "Generating API documentation with Doxygen" VERBATIM
+        )
+    endif()
+
+endif()
+
+# Update version in doxyfile if doxygen was found
+if (DOXYGEN_FOUND)
+    configure_file("${UCBImp_SOURCE_DIR}/cmake/infiles/Doxyfile.in" "${UCBImp_SOURCE_DIR}/conf/Doxyfile")
 endif()
