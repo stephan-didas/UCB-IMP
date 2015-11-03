@@ -1,9 +1,17 @@
+/** @file */
 #ifndef UCBIMP_VERSION_H
 #define UCBIMP_VERSION_H
 
+/** Major version number of actual build */
 #define VERSION_MAJOR  @VERSION_MAJOR@
+
+/** Minor version number of actual build */
 #define VERSION_MINOR  @VERSION_MINOR@
+
+/** Patch version number of actual build */
 #define VERSION_PATCH  @VERSION_PATCH@
-#define VERSION_SHORT  @VERSION_SHORT@
+
+/** Actual version as string of actual build */
+#define VERSION_SHORT  "@VERSION_SHORT@"
 
 #endif //UCBIMP_VERSION_H
