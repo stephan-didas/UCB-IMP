@@ -1,8 +1,8 @@
 // Copyright (c) 2015, Patrick Scheid, Axel Ohlmann, Stephan Didas
 
 /** @file */
-#ifndef UCBIMP_VERSION_H
-#define UCBIMP_VERSION_H
+#ifndef INCLUDE_VERSION_H_
+#define INCLUDE_VERSION_H_
 
 /** Major version number of actual build */
 #define VERSION_MAJOR  0
@@ -16,4 +16,4 @@
 /** Actual version as string of actual build */
 #define VERSION_SHORT  "0.0.0"
 
-#endif //UCBIMP_VERSION_H
+#endif  // INCLUDE_VERSION_H_
