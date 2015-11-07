@@ -1,3 +1,5 @@
+// Copyright (c) 2015, Patrick Scheid, Axel Ohlmann, Stephan Didas
+
 /** @file */
 #ifndef UCBIMP_VERSION_H
 #define UCBIMP_VERSION_H

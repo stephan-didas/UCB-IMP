@@ -1,3 +1,5 @@
+## Copyright (c) 2015, Patrick Scheid, Axel Ohlmann, Stephan Didas
+
 ##
 #   Adding unit tests created with googletest framework
 ##

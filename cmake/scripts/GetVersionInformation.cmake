@@ -1,3 +1,5 @@
+# Copyright (c) 2015, Patrick Scheid, Axel Ohlmann, Stephan Didas
+#
 # GetVersionInformation.cmake
 #
 # This script parses the latests git tag (needs to be like v0.0.1), refspec and SHA1 commit hash key.
