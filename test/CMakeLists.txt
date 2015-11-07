@@ -16,7 +16,7 @@ file (GLOB_RECURSE test_sources ${UCBImp_SOURCE_DIR}/test/ *.cpp)
 
 # Compile a googletest test runner named "testrunner"
 add_executable(testrunner ${test_sources})
-target_link_libraries(testrunner gtest_main)
+target_link_libraries(testrunner gtest_main ucbimp)
 
 # Make sure ucbimp library is build befor create testrunner
 add_dependencies(testrunner ucbimp)
