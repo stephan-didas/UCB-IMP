@@ -13,9 +13,6 @@ using std::copy;
 
 namespace ucbimp {
 
-template<typename T, size_t DIM>
-class DataCube;
-
 /**
  *  \class      DataCube
  *  \brief      Generic class for n-dimensional data container.
