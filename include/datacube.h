@@ -67,17 +67,24 @@ class DataCube {
  *  \param  sizes   Multiple size specifications, one for each dimension.
  */
 template<typename T, size_t DIM>
-DataCube<T, DIM>::DataCube(array<size_t, DIM> sizes) : dimension(DIM),
-                                                       size(sizes) {
-    // Calculate access coefficients
-    size_t temp_coef = 1;
-    for (int i = 0; i < dimension; ++i) {
-        coefs[i] = temp_coef;
-        temp_coef *= size[i];
+DataCube<T, DIM>::DataCube(array<size_t, DIM> sizes) :
+        dimension(DIM), size(sizes) {
+    // Calcualiting coefficients vector
+    coefs[0] = 1;
+    for (size_t index = 1 ; index < dimension ; ++index)
+        coefs[index] = coefs[index-1] * size[index-1];
+
+    // If dimension is bigger then two, than set first two values
+    // to the following to create row-correct memory layout.
+    if (dimension >= 2) {
+        coefs[0] = size[1];
+        coefs[1] = 1;
     }
 
     // Initialize vector to right size for data
-    this->data = vector<T>(temp_coef);
+    size_t linear_size = 1;
+    for (auto size : sizes) linear_size *= size;
+    data = vector<T>(linear_size);
 }
 
 /**
