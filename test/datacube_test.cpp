@@ -2,14 +2,11 @@
 
 #include <datacube.h>
 #include <gtest/gtest.h>
-#include <iostream>
 #include <random>
 #include <algorithm>
 #include <vector>
 
 using std::vector;
-using std::cout;
-using std::endl;
 using std::out_of_range;
 using std::default_random_engine;
 using std::uniform_int_distribution;
@@ -20,8 +17,6 @@ using ucbimp::DataCube;
  * Check if data is write and readable.
  */
 TEST(DATACUBE_TEST, Set_And_Read_Data) {
-
-
     // Set dimension size
     size_t dim_size = 10;
 
@@ -37,7 +32,6 @@ TEST(DATACUBE_TEST, Set_And_Read_Data) {
                 counter++;
             }
 }
-
 
 /**
  * Check for out of range checking of at function (accomplished through vector<>)
@@ -56,6 +50,96 @@ TEST(DATACUBE_TEST, OutOfRange_Checking) {
     ASSERT_THROW(dc.at({10}), out_of_range);
 }
 
+/**
+ * Test for Row-Correctness in 1-dimensional DataCube.
+ */
+TEST(DATACUBE_TEST, Row_Correctness_1D) {
+    // Create and fill DataCube
+    DataCube<size_t, 1> dc({50});
+    for (size_t i = 0 ; i < dc.getSize()[0] ; ++i)
+        dc.at({i}) = i+1;
+
+    // Check if innerData layout is correct
+    // This means in one simple row in correct order.
+    for (size_t i = 0 ; i < dc.getSize()[0] ; ++i) {
+        ASSERT_EQ(i+1, dc.at({i}));
+    }
+}
+
+/**
+ * Test for Row-Correctness in 2-dimensional DataCube.
+ */
+TEST(DATACUBE_TEST, Row_Correctness_2D) {
+    // Create and fill DataCube
+    DataCube<size_t, 2> dc({100, 100});
+    size_t counter = 1;
+    for (size_t x = 0 ; x < dc.getSize()[0] ; ++x) {
+        for (size_t y = 0 ; y < dc.getSize()[1] ; ++y) {
+            dc.at({x, y}) = counter++;
+        }
+    }
+
+    // Check if innerData layout is correct
+    // This means one row after the other: here 1, 2, 3, 4, ...
+    counter = 1;
+    for (auto i : dc.innerData()) {
+        ASSERT_EQ(i, counter);
+        counter++;
+    }
+}
+
+/**
+ * Test for Row-Correctness in 3-dimensional DataCube.
+ */
+TEST(DATACUBE_TEST, Row_Correctness_3D) {
+    // Create and fill DataCube
+    DataCube<size_t, 3> dc({3, 7, 5});
+
+    size_t counter = 1;
+    for (size_t z = 0 ; z < dc.getSize()[2] ; ++z) {
+        for (size_t x = 0 ; x < dc.getSize()[0] ; ++x) {
+            for (size_t y = 0 ; y < dc.getSize()[1] ; ++y) {
+                dc.at({x, y, z}) = counter++;
+            }
+        }
+    }
+
+    // Check if innerData layout is correct
+    // This means one row after the other: here 1, 2, 3, 4, ...
+    counter = 1;
+    for (auto i : dc.innerData()) {
+        ASSERT_EQ(i, counter);
+        counter++;
+    }
+}
+
+/**
+ * Test for Row-Correctness in 4-dimensional DataCube.
+ */
+TEST(DATACUBE_TEST, Row_Correctness_4D) {
+    // Create and fill DataCube
+    DataCube<size_t, 4> dc({3, 7, 5, 9});
+    size_t counter = 1;
+    for (size_t time = 0 ; time < dc.getSize()[3] ; ++time) {
+        for (size_t z = 0 ; z < dc.getSize()[2] ; ++z) {
+            for (size_t x = 0 ; x < dc.getSize()[0] ; ++x) {
+                for (size_t y = 0 ; y < dc.getSize()[1] ; ++y) {
+                    dc.at({x, y, z, time}) = counter++;
+                }
+            }
+        }
+    }
+
+
+
+    // Check if innerData layout is correct
+    // This means one row after another: here 1, 2, 3, 4, ...
+    counter = 1;
+    for (auto i : dc.innerData()) {
+        ASSERT_EQ(i, counter);
+        counter++;
+    }
+}
 
 /**
  * Checking if index transformation leads to correct inner memory management
@@ -101,13 +185,6 @@ TEST(DATACUBE_TEST, Equal_NotEqual) {
     // Check, that they are equal and not not_equal.
     ASSERT_TRUE(dc1 == dc2);
     ASSERT_FALSE(dc1 != dc2);
-
-    /* @TODO: Compiler error, but would be great to catch different dimension in this test.
-    // Check that different dimension is detected
-    DataCube<int, 3> dc_diff_dim({10, 10, 10});
-    ASSERT_FALSE(dc1 == dc_diff_dim);
-    ASSERT_TRUE( (dc1 != dc_diff_dim) );
-    */
 
     // Check that different sizes are detected
     // Therefore, create new instance with different sizes
