@@ -58,7 +58,7 @@ if (doc)
 
     # Finding doxygen on current system
     # @TODO: Implement Workaround for Windows
-    # @TODO: Remove REQUIRED since not really neccessary for compilation
+    # @TODO: Remove REQUIRED since not really necessary for compilation
     find_package(Doxygen REQUIRED)
 
     if(DOXYGEN_FOUND)
